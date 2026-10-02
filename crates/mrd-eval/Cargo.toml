@@ -1,0 +1,18 @@
+[package]
+name = "mrd-eval"
+description = "Evaluation metrics, pattern-file parsing and synthetic AMLSim-style data generation"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+mrd-core = { path = "../mrd-core" }
+serde.workspace = true
+serde_json.workspace = true
+csv.workspace = true
+rustc-hash.workspace = true
+anyhow.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
