@@ -1,0 +1,15 @@
+# Data (fetch with scripts/fetch-data.sh; never commit)
+/data/
+# Build outputs
+/target/
+case-service/target/
+# Local tooling
+node_modules
+/screenshots/tmp/
+*.log
+.idea/
+.vscode/
+*.iml
+.DS_Store
+/models/
+/ci-out/
