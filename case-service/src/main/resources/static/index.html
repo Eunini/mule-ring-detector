@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mule Ring Detector - Case Desk</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/cytoscape@3.30.2/dist/cytoscape.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Mule Ring Detector <span>Case Desk</span></div>
+    <form id="login-form" class="login" autocomplete="on">
+      <input id="login-user" name="username" placeholder="username" autocomplete="username" required>
+      <input id="login-pass" name="password" type="password" placeholder="password" autocomplete="current-password" required>
+      <button type="submit">Sign in</button>
+    </form>
+    <div id="session" class="session hidden">
+      <span id="session-user"></span>
+      <button id="logout" type="button" class="ghost">Sign out</button>
+    </div>
+  </header>
+
+  <div id="message" class="message hidden" role="status"></div>
+
+  <main id="app" class="hidden">
+    <section class="list-pane">
+      <div class="toolbar">
+        <label>Status
+          <select id="status-filter">
+            <option value="">Active</option>
+            <option value="OPEN">Open</option>
+            <option value="INVESTIGATING">Investigating</option>
+            <option value="ESCALATED">Escalated</option>
+            <option value="CLOSED">Closed</option>
+            <option value="MERGED">Merged</option>
+            <option value="ALL">All</option>
+          </select>
+        </label>
+        <button id="refresh" type="button" class="ghost">Refresh</button>
+      </div>
+      <table class="cases">
+        <thead>
+          <tr><th>Case</th><th>Status</th><th>Priority</th><th class="num">Alerts</th><th class="num">Accts</th><th class="num">USD</th><th>Assignee</th></tr>
+        </thead>
+        <tbody id="case-rows"></tbody>
+      </table>
+      <div class="pager">
+        <button id="prev" type="button" class="ghost">Previous</button>
+        <span id="page-info"></span>
+        <button id="next" type="button" class="ghost">Next</button>
+      </div>
+    </section>
+
+    <section class="detail-pane" id="detail">
+      <p class="empty">Select a case to review its evidence.</p>
+    </section>
+  </main>
+
+  <template id="detail-template">
+    <div class="detail-head">
+      <div>
+        <h1 data-f="reference"></h1>
+        <div class="badges"><span class="badge" data-f="status"></span><span class="badge prio" data-f="priority"></span><span class="badge muted" data-f="disposition"></span></div>
+      </div>
+      <div class="downloads">
+        <button type="button" class="ghost" data-act="str">STR XML</button>
+        <button type="button" class="ghost" data-act="html">Summary</button>
+        <button type="button" class="ghost" data-act="pdf">PDF</button>
+      </div>
+    </div>
+    <dl class="figures">
+      <div><dt>Max score</dt><dd data-f="maxScore"></dd></div>
+      <div><dt>Alerts</dt><dd data-f="alertCount"></dd></div>
+      <div><dt>Accounts</dt><dd data-f="accountCount"></dd></div>
+      <div><dt>Total USD</dt><dd data-f="totalAmountUsd"></dd></div>
+      <div><dt>Assignee</dt><dd data-f="assignee"></dd></div>
+      <div><dt>Rings</dt><dd data-f="ringIds"></dd></div>
+    </dl>
+    <div class="actions">
+      <div class="action-row" data-slot="transitions"></div>
+      <div class="action-row" data-slot="filing"></div>
+      <form class="comment" data-slot="comment">
+        <input name="text" placeholder="Add a comment or transition note" maxlength="2000">
+        <button type="submit" class="ghost">Comment</button>
+      </form>
+    </div>
+    <h2>Evidence graph</h2>
+    <div class="graph" data-slot="graph"></div>
+    <div class="legend"><span class="dot source"></span>source <span class="dot intermediary"></span>intermediary <span class="dot sink"></span>sink <span class="dot member"></span>ring member <span class="edge alerted"></span>alerted txn <span class="edge"></span>detector evidence</div>
+    <h2>Alerts</h2>
+    <table class="grid"><thead><tr><th>Time (UTC)</th><th>Alert</th><th>From</th><th>To</th><th class="num">USD</th><th class="num">Score</th><th>Detectors</th></tr></thead><tbody data-slot="alerts"></tbody></table>
+    <h2>Audit trail</h2>
+    <ol class="audit" data-slot="audit"></ol>
+  </template>
+</body>
+</html>

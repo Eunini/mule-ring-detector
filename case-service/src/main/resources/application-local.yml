@@ -1,0 +1,31 @@
+# Local profile: runs without PostgreSQL using an H2 file database in PostgreSQL mode.
+# DEV-ONLY credentials below. They are placeholders for local demos and must never be
+# used in a shared or production environment (override via MRD_*_PASSWORD env vars).
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:file:./data/mrd-local;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;AUTO_SERVER=FALSE}
+    username: sa
+    password: ""
+
+mrd:
+  security:
+    users:
+      - username: analyst1
+        password: ${MRD_ANALYST1_PASSWORD:analyst1-dev}
+        full-name: Alex Analyst
+        email: analyst1@example.org
+        roles: [ANALYST]
+      - username: analyst2
+        password: ${MRD_ANALYST2_PASSWORD:analyst2-dev}
+        full-name: Blair Analyst
+        email: analyst2@example.org
+        roles: [ANALYST]
+      - username: supervisor1
+        password: ${MRD_SUPERVISOR1_PASSWORD:supervisor1-dev}
+        full-name: Casey Supervisor
+        email: supervisor1@example.org
+        roles: [SUPERVISOR]
+      - username: engine
+        password: ${MRD_ENGINE_PASSWORD:engine-dev}
+        full-name: Detection Engine
+        roles: [INGEST]

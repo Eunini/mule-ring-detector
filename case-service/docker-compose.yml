@@ -1,0 +1,40 @@
+# Case service + PostgreSQL 16.
+# The default passwords below are DEV-ONLY placeholders; set the variables in a local .env
+# file (not committed) or your shell before running anywhere shared.
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: mrd
+      POSTGRES_USER: mrd
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mrd-dev-only}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mrd -d mrd"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  case-service:
+    build:
+      context: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mrd
+      SPRING_DATASOURCE_USERNAME: mrd
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-mrd-dev-only}
+      MRD_ANALYST1_PASSWORD: ${MRD_ANALYST1_PASSWORD:-analyst1-dev}
+      MRD_ANALYST2_PASSWORD: ${MRD_ANALYST2_PASSWORD:-analyst2-dev}
+      MRD_SUPERVISOR1_PASSWORD: ${MRD_SUPERVISOR1_PASSWORD:-supervisor1-dev}
+      MRD_ENGINE_PASSWORD: ${MRD_ENGINE_PASSWORD:-engine-dev}
+    ports:
+      - "8085:8085"
+    restart: unless-stopped
+
+volumes:
+  pgdata:

@@ -1,0 +1,560 @@
+[
+  {
+    "alertId": "txn-100002",
+    "txId": 100002,
+    "timestamp": "2022-09-01T11:28:00Z",
+    "fromAccount": "021174:800737690",
+    "toAccount": "001244:80093C0D0",
+    "amountUsd": 7254.53,
+    "currency": "US Dollar",
+    "paymentFormat": "ACH",
+    "score": 0.82,
+    "threshold": 0.71,
+    "modelVersion": "gbdt-v1",
+    "ringId": "R-1",
+    "ringAccounts": [
+      "021174:800737690",
+      "012:80011F990",
+      "020:80020C5B0",
+      "001244:80093C0D0"
+    ],
+    "detectors": [
+      {
+        "name": "fan_out",
+        "value": 3.0,
+        "detail": "source sent to 3 distinct accounts within 96h",
+        "edges": [
+          {
+            "txId": 100000,
+            "from": "021174:800737690",
+            "to": "012:80011F990",
+            "amountUsd": 2848.96,
+            "timestamp": "2022-09-01T00:06:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100001,
+            "from": "021174:800737690",
+            "to": "020:80020C5B0",
+            "amountUsd": 8630.4,
+            "timestamp": "2022-09-01T04:33:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100002,
+            "from": "021174:800737690",
+            "to": "001244:80093C0D0",
+            "amountUsd": 7254.53,
+            "timestamp": "2022-09-01T11:28:00Z",
+            "laundering": true
+          }
+        ]
+      },
+      {
+        "name": "velocity",
+        "value": 1.67,
+        "detail": "outgoing transfers per hour above peer baseline",
+        "edges": []
+      }
+    ],
+    "topFeatures": [
+      {
+        "name": "src_out_distinct",
+        "contribution": 0.41
+      },
+      {
+        "name": "src_out_count_24h",
+        "contribution": 0.22
+      },
+      {
+        "name": "payment_format_ach",
+        "contribution": 0.07
+      }
+    ]
+  },
+  {
+    "alertId": "txn-100004",
+    "txId": 100004,
+    "timestamp": "2022-09-01T14:11:00Z",
+    "fromAccount": "021174:800737690",
+    "toAccount": "020:80066B990",
+    "amountUsd": 12536.92,
+    "currency": "Euro",
+    "paymentFormat": "ACH",
+    "score": 0.91,
+    "threshold": 0.71,
+    "modelVersion": "gbdt-v1",
+    "ringId": "R-1",
+    "ringAccounts": [
+      "021174:800737690",
+      "012:80011F990",
+      "020:80020C5B0",
+      "001244:80093C0D0",
+      "00513:80078E200",
+      "020:80066B990"
+    ],
+    "detectors": [
+      {
+        "name": "fan_out",
+        "value": 5.0,
+        "detail": "source sent to 5 distinct accounts within 96h",
+        "edges": [
+          {
+            "txId": 100000,
+            "from": "021174:800737690",
+            "to": "012:80011F990",
+            "amountUsd": 2848.96,
+            "timestamp": "2022-09-01T00:06:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100001,
+            "from": "021174:800737690",
+            "to": "020:80020C5B0",
+            "amountUsd": 8630.4,
+            "timestamp": "2022-09-01T04:33:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100002,
+            "from": "021174:800737690",
+            "to": "001244:80093C0D0",
+            "amountUsd": 7254.53,
+            "timestamp": "2022-09-01T11:28:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100003,
+            "from": "021174:800737690",
+            "to": "00513:80078E200",
+            "amountUsd": 6990.87,
+            "timestamp": "2022-09-01T13:13:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100004,
+            "from": "021174:800737690",
+            "to": "020:80066B990",
+            "amountUsd": 12536.92,
+            "timestamp": "2022-09-01T14:11:00Z",
+            "laundering": true
+          }
+        ]
+      },
+      {
+        "name": "velocity",
+        "value": 1.92,
+        "detail": "outgoing transfers per hour above peer baseline",
+        "edges": []
+      }
+    ],
+    "topFeatures": [
+      {
+        "name": "src_out_distinct",
+        "contribution": 0.41
+      },
+      {
+        "name": "src_out_count_24h",
+        "contribution": 0.22
+      },
+      {
+        "name": "payment_format_ach",
+        "contribution": 0.07
+      }
+    ]
+  },
+  {
+    "alertId": "txn-100007",
+    "txId": 100007,
+    "timestamp": "2022-09-02T23:10:00Z",
+    "fromAccount": "021174:800737690",
+    "toAccount": "01601:800578800",
+    "amountUsd": 12183.28,
+    "currency": "US Dollar",
+    "paymentFormat": "ACH",
+    "score": 0.95,
+    "threshold": 0.71,
+    "modelVersion": "gbdt-v1",
+    "ringId": "R-1",
+    "ringAccounts": [
+      "021174:800737690",
+      "012:80011F990",
+      "020:80020C5B0",
+      "001244:80093C0D0",
+      "00513:80078E200",
+      "020:80066B990",
+      "00410:8002CC310",
+      "01292:8004030A0",
+      "01601:800578800"
+    ],
+    "detectors": [
+      {
+        "name": "fan_out",
+        "value": 8.0,
+        "detail": "source sent to 8 distinct accounts within 96h",
+        "edges": [
+          {
+            "txId": 100000,
+            "from": "021174:800737690",
+            "to": "012:80011F990",
+            "amountUsd": 2848.96,
+            "timestamp": "2022-09-01T00:06:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100001,
+            "from": "021174:800737690",
+            "to": "020:80020C5B0",
+            "amountUsd": 8630.4,
+            "timestamp": "2022-09-01T04:33:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100002,
+            "from": "021174:800737690",
+            "to": "001244:80093C0D0",
+            "amountUsd": 7254.53,
+            "timestamp": "2022-09-01T11:28:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100003,
+            "from": "021174:800737690",
+            "to": "00513:80078E200",
+            "amountUsd": 6990.87,
+            "timestamp": "2022-09-01T13:13:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100004,
+            "from": "021174:800737690",
+            "to": "020:80066B990",
+            "amountUsd": 12536.92,
+            "timestamp": "2022-09-01T14:11:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100005,
+            "from": "021174:800737690",
+            "to": "00410:8002CC310",
+            "amountUsd": 3511.82,
+            "timestamp": "2022-09-02T15:40:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100006,
+            "from": "021174:800737690",
+            "to": "01292:8004030A0",
+            "amountUsd": 16135.09,
+            "timestamp": "2022-09-02T21:23:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 100007,
+            "from": "021174:800737690",
+            "to": "01601:800578800",
+            "amountUsd": 12183.28,
+            "timestamp": "2022-09-02T23:10:00Z",
+            "laundering": true
+          }
+        ]
+      },
+      {
+        "name": "velocity",
+        "value": 2.11,
+        "detail": "outgoing transfers per hour above peer baseline",
+        "edges": []
+      }
+    ],
+    "topFeatures": [
+      {
+        "name": "src_out_distinct",
+        "contribution": 0.41
+      },
+      {
+        "name": "src_out_count_24h",
+        "contribution": 0.22
+      },
+      {
+        "name": "payment_format_ach",
+        "contribution": 0.07
+      }
+    ]
+  },
+  {
+    "alertId": "txn-200001",
+    "txId": 200001,
+    "timestamp": "2022-09-01T02:52:00Z",
+    "fromAccount": "020:80BC62F10",
+    "toAccount": "0240229:80F025640",
+    "amountUsd": 7366.02,
+    "currency": "Swiss Franc",
+    "paymentFormat": "ACH",
+    "score": 0.77,
+    "threshold": 0.71,
+    "modelVersion": "gbdt-v1",
+    "ringId": "R-2",
+    "ringAccounts": [
+      "01467:8013C4030",
+      "020:80BC62F10",
+      "0240229:80F025640",
+      "0217:80FD27570",
+      "0024856:8090E8EB0",
+      "0071:804ABCE90",
+      "0213737:805494C30",
+      "014290:801B949C0",
+      "0010057:803DE1580",
+      "0028628:80ACEE280"
+    ],
+    "detectors": [
+      {
+        "name": "pass_through",
+        "value": 0.97,
+        "detail": "received and forwarded ~97% of funds within 24h",
+        "edges": [
+          {
+            "txId": 200000,
+            "from": "01467:8013C4030",
+            "to": "020:80BC62F10",
+            "amountUsd": 8203.11,
+            "timestamp": "2022-09-01T00:03:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200001,
+            "from": "020:80BC62F10",
+            "to": "0240229:80F025640",
+            "amountUsd": 7366.02,
+            "timestamp": "2022-09-01T02:52:00Z",
+            "laundering": true
+          }
+        ]
+      }
+    ],
+    "topFeatures": [
+      {
+        "name": "dst_in_out_ratio_24h",
+        "contribution": 0.36
+      },
+      {
+        "name": "hop_currency_changes",
+        "contribution": 0.18
+      }
+    ]
+  },
+  {
+    "alertId": "txn-200005",
+    "txId": 200005,
+    "timestamp": "2022-09-03T12:08:00Z",
+    "fromAccount": "0071:804ABCE90",
+    "toAccount": "0213737:805494C30",
+    "amountUsd": 7465.25,
+    "currency": "Rupee",
+    "paymentFormat": "ACH",
+    "score": 0.86,
+    "threshold": 0.71,
+    "modelVersion": "gbdt-v1",
+    "ringId": "R-2",
+    "ringAccounts": [
+      "01467:8013C4030",
+      "020:80BC62F10",
+      "0240229:80F025640",
+      "0217:80FD27570",
+      "0024856:8090E8EB0",
+      "0071:804ABCE90",
+      "0213737:805494C30",
+      "014290:801B949C0",
+      "0010057:803DE1580",
+      "0028628:80ACEE280"
+    ],
+    "detectors": [
+      {
+        "name": "pass_through",
+        "value": 0.97,
+        "detail": "received and forwarded ~97% of funds within 24h",
+        "edges": [
+          {
+            "txId": 200004,
+            "from": "0024856:8090E8EB0",
+            "to": "0071:804ABCE90",
+            "amountUsd": 7652.17,
+            "timestamp": "2022-09-03T10:20:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200005,
+            "from": "0071:804ABCE90",
+            "to": "0213737:805494C30",
+            "amountUsd": 7465.25,
+            "timestamp": "2022-09-03T12:08:00Z",
+            "laundering": true
+          }
+        ]
+      }
+    ],
+    "topFeatures": [
+      {
+        "name": "dst_in_out_ratio_24h",
+        "contribution": 0.36
+      },
+      {
+        "name": "hop_currency_changes",
+        "contribution": 0.18
+      }
+    ]
+  },
+  {
+    "alertId": "txn-200009",
+    "txId": 200009,
+    "timestamp": "2022-09-04T15:51:00Z",
+    "fromAccount": "0028628:80ACEE280",
+    "toAccount": "01467:8013C4030",
+    "amountUsd": 7945.55,
+    "currency": "US Dollar",
+    "paymentFormat": "ACH",
+    "score": 0.93,
+    "threshold": 0.71,
+    "modelVersion": "gbdt-v1",
+    "ringId": "R-2",
+    "ringAccounts": [
+      "01467:8013C4030",
+      "020:80BC62F10",
+      "0240229:80F025640",
+      "0217:80FD27570",
+      "0024856:8090E8EB0",
+      "0071:804ABCE90",
+      "0213737:805494C30",
+      "014290:801B949C0",
+      "0010057:803DE1580",
+      "0028628:80ACEE280"
+    ],
+    "detectors": [
+      {
+        "name": "cycle",
+        "value": 10.0,
+        "detail": "funds returned to origin after 10 hops within 4 days",
+        "edges": [
+          {
+            "txId": 200000,
+            "from": "01467:8013C4030",
+            "to": "020:80BC62F10",
+            "amountUsd": 8203.11,
+            "timestamp": "2022-09-01T00:03:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200001,
+            "from": "020:80BC62F10",
+            "to": "0240229:80F025640",
+            "amountUsd": 7366.02,
+            "timestamp": "2022-09-01T02:52:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200002,
+            "from": "0240229:80F025640",
+            "to": "0217:80FD27570",
+            "amountUsd": 7041.45,
+            "timestamp": "2022-09-02T08:44:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200003,
+            "from": "0217:80FD27570",
+            "to": "0024856:8090E8EB0",
+            "amountUsd": 7810.98,
+            "timestamp": "2022-09-02T12:29:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200004,
+            "from": "0024856:8090E8EB0",
+            "to": "0071:804ABCE90",
+            "amountUsd": 7652.17,
+            "timestamp": "2022-09-03T10:20:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200005,
+            "from": "0071:804ABCE90",
+            "to": "0213737:805494C30",
+            "amountUsd": 7465.25,
+            "timestamp": "2022-09-03T12:08:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200006,
+            "from": "0213737:805494C30",
+            "to": "014290:801B949C0",
+            "amountUsd": 7222.58,
+            "timestamp": "2022-09-03T13:24:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200007,
+            "from": "014290:801B949C0",
+            "to": "0010057:803DE1580",
+            "amountUsd": 6187.75,
+            "timestamp": "2022-09-04T03:24:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200008,
+            "from": "0010057:803DE1580",
+            "to": "0028628:80ACEE280",
+            "amountUsd": 7618.48,
+            "timestamp": "2022-09-04T09:44:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200009,
+            "from": "0028628:80ACEE280",
+            "to": "01467:8013C4030",
+            "amountUsd": 7945.55,
+            "timestamp": "2022-09-04T15:51:00Z",
+            "laundering": true
+          }
+        ]
+      },
+      {
+        "name": "pass_through",
+        "value": 0.97,
+        "detail": "received and forwarded ~97% of funds within 24h",
+        "edges": [
+          {
+            "txId": 200008,
+            "from": "0010057:803DE1580",
+            "to": "0028628:80ACEE280",
+            "amountUsd": 7618.48,
+            "timestamp": "2022-09-04T09:44:00Z",
+            "laundering": true
+          },
+          {
+            "txId": 200009,
+            "from": "0028628:80ACEE280",
+            "to": "01467:8013C4030",
+            "amountUsd": 7945.55,
+            "timestamp": "2022-09-04T15:51:00Z",
+            "laundering": true
+          }
+        ]
+      },
+      {
+        "name": "ring",
+        "value": 10.0,
+        "detail": "connected component of 10 flagged accounts",
+        "edges": []
+      }
+    ],
+    "topFeatures": [
+      {
+        "name": "dst_in_out_ratio_24h",
+        "contribution": 0.36
+      },
+      {
+        "name": "hop_currency_changes",
+        "contribution": 0.18
+      }
+    ]
+  }
+]

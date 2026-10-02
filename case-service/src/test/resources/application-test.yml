@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:mrd-test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  main:
+    banner-mode: off
+
+logging:
+  level:
+    com.openhtmltopdf: warn
+    org.apache.pdfbox: warn
+
+mrd:
+  security:
+    bcrypt-strength: 4
+    users:
+      - username: analyst1
+        password: test-analyst1
+        full-name: Alex Analyst
+        email: analyst1@example.org
+        roles: [ANALYST]
+      - username: analyst2
+        password: test-analyst2
+        full-name: Blair Analyst
+        roles: [ANALYST]
+      - username: supervisor1
+        password: test-supervisor1
+        full-name: Casey Supervisor
+        email: supervisor1@example.org
+        roles: [SUPERVISOR]
+      - username: engine
+        password: test-engine
+        roles: [INGEST]

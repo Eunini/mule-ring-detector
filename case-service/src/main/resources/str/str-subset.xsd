@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Project-owned subset schema for the case-service STR export.
+  Generic goAML-style structure for demonstration; not certified against any FIU schema.
+  Element names follow the conventions of goAML, the UNODC system used by financial
+  intelligence units in many countries; code values (transmode, funds, indicators) are
+  project-specific demonstration lookups.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xs:simpleType name="NonEmpty">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="4000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Code">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z0-9_\-]{1,20}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GoAmlDateTime">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Amount">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+      <xs:fractionDigits value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Account">
+    <xs:sequence>
+      <xs:element name="institution_name" type="NonEmpty"/>
+      <xs:element name="institution_code" type="NonEmpty"/>
+      <xs:element name="account" type="NonEmpty"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReportingPerson">
+    <xs:sequence>
+      <xs:element name="first_name" type="NonEmpty"/>
+      <xs:element name="last_name" type="NonEmpty"/>
+      <xs:element name="occupation" type="NonEmpty"/>
+      <xs:element name="email" type="NonEmpty" minOccurs="0"/>
+      <xs:element name="user_id" type="NonEmpty"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Location">
+    <xs:sequence>
+      <xs:element name="address_type" type="Code"/>
+      <xs:element name="address" type="NonEmpty"/>
+      <xs:element name="city" type="NonEmpty"/>
+      <xs:element name="country_code">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]{2}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Transaction">
+    <xs:sequence>
+      <xs:element name="transactionnumber" type="NonEmpty"/>
+      <xs:element name="internal_ref_number" type="NonEmpty"/>
+      <xs:element name="transaction_location" type="NonEmpty"/>
+      <xs:element name="date_transaction" type="GoAmlDateTime"/>
+      <xs:element name="transmode_code" type="Code"/>
+      <xs:element name="amount_local" type="Amount"/>
+      <xs:element name="t_from">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="from_funds_code" type="Code"/>
+            <xs:element name="from_account" type="Account"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="t_to">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="to_funds_code" type="Code"/>
+            <xs:element name="to_account" type="Account"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="comments" type="NonEmpty" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="report">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="rentity_id" type="NonEmpty"/>
+        <xs:element name="submission_code">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="E"/>
+              <xs:enumeration value="M"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="report_code">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="STR"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="entity_reference" type="NonEmpty"/>
+        <xs:element name="submission_date" type="GoAmlDateTime"/>
+        <xs:element name="currency_code_local">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:pattern value="[A-Z]{3}"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="reporting_person" type="ReportingPerson"/>
+        <xs:element name="location" type="Location"/>
+        <xs:element name="reason" type="NonEmpty"/>
+        <xs:element name="action" type="NonEmpty"/>
+        <xs:element name="transaction" type="Transaction" maxOccurs="unbounded"/>
+        <xs:element name="report_indicators">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="indicator" maxOccurs="unbounded">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="MRD-[A-Z]+"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
