@@ -1,0 +1,23 @@
+[package]
+name = "mrd-cli"
+description = "Command line for replay, training, evaluation, benchmarking and the HTTP ingest API"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "mrd"
+path = "src/main.rs"
+
+[dependencies]
+mrd-core = { path = "../mrd-core" }
+mrd-eval = { path = "../mrd-eval" }
+serde.workspace = true
+serde_json.workspace = true
+csv.workspace = true
+rustc-hash.workspace = true
+anyhow.workspace = true
+clap.workspace = true
+tiny_http = "0.12"
+ureq = { version = "2", features = ["json"] }
