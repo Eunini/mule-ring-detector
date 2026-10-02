@@ -443,7 +443,10 @@ mod tests {
         let mask = stage1_mask();
         let constant = ModelFile {
             version: "s1".into(),
-            feature_names: crate::features::FEATURE_NAMES.iter().map(|s| s.to_string()).collect(),
+            feature_names: crate::features::FEATURE_NAMES
+                .iter()
+                .map(|s| s.to_string())
+                .collect(),
             feature_mask: mask.clone(),
             threshold: 0.5,
             model: Model::Lr(Lr {
@@ -457,17 +460,31 @@ mod tests {
         };
         let mut e = Engine::new(EngineConfig::standard(), None).with_stage1(vec![constant], false);
         let first = e.process(&txn(0, "2022/09/01 00:00", "a", "b", 10.0));
-        assert_eq!(first.features[31], 0.0, "no earlier edge, no neighbour score");
+        assert_eq!(
+            first.features[31], 0.0,
+            "no earlier edge, no neighbour score"
+        );
         let second = e.process(&txn(1, "2022/09/01 00:05", "a", "c", 10.0));
-        assert!((second.features[31] - 0.5).abs() < 1e-6, "previous outbound edge of a was scored");
-        assert_eq!(second.features[28], 1.0, "all of a's outbound edges are ACH");
+        assert!(
+            (second.features[31] - 0.5).abs() < 1e-6,
+            "previous outbound edge of a was scored"
+        );
+        assert_eq!(
+            second.features[28], 1.0,
+            "all of a's outbound edges are ACH"
+        );
         let third = e.process(&txn(2, "2022/09/01 00:06", "b", "d", 10.0));
-        assert!((third.features[30] - 0.5).abs() < 1e-6, "inbound a->b was scored");
+        assert!(
+            (third.features[30] - 0.5).abs() < 1e-6,
+            "inbound a->b was scored"
+        );
     }
 
     #[test]
     fn folds_are_balanced() {
-        let ones = (0..2000).filter(|i| fold_of(&format!("{i}:acct")) == 1).count();
+        let ones = (0..2000)
+            .filter(|i| fold_of(&format!("{i}:acct")) == 1)
+            .count();
         assert!((800..1200).contains(&ones), "{ones}");
     }
 
