@@ -1,0 +1,57 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  engine:
+    name: Rust engine
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: fmt
+        run: cargo fmt --all -- --check
+      - name: clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: test
+        run: cargo test --workspace
+      - name: Evaluate on the synthetic fixture
+        run: |
+          cargo build --release
+          M=target/release/mrd
+          mkdir -p ci-out
+          $M prepare --input tests/fixtures/synth_trans.csv --output ci-out/sorted.csv --splits ci-out/splits.json
+          $M train --input ci-out/sorted.csv --splits ci-out/splits.json --out-dir ci-out/models --neg-rate 1.0 --trees 80 --depth 3
+          $M eval --input ci-out/sorted.csv --splits ci-out/splits.json --models-dir ci-out/models \
+            --patterns tests/fixtures/synth_patterns.txt --out-dir ci-out/reports
+          $M bench --input ci-out/sorted.csv --model ci-out/models/gbdt.json --out ci-out/reports/bench.json
+          cat ci-out/reports/eval.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fixture-eval
+          path: ci-out/reports
+
+  case-service:
+    name: Java case service
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: case-service
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - name: verify
+        run: ./mvnw -B verify
