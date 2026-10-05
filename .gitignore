@@ -13,3 +13,8 @@ node_modules
 .DS_Store
 /models/
 /ci-out/
+/.demo/
+/case-service/data/
+.env
+.env.*
+!.env.example

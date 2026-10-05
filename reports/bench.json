@@ -1,0 +1,29 @@
+{
+  "alerts": 3117,
+  "engine_seconds": 246.84585569,
+  "graph_at_end": {
+    "accounts": 515088,
+    "adjacency_entries": 180,
+    "approx_bytes": 107379502,
+    "live_edges": 90
+  },
+  "latency_us": {
+    "max": 242329.905,
+    "p50": 35.898,
+    "p90": 53.91,
+    "p99": 91.636,
+    "p999": 1364.338
+  },
+  "max_estimated_state_mib": 283.20264625549316,
+  "memory_mib": {
+    "note": "peak RSS includes the latency sample buffer (4 bytes per transaction)",
+    "peak_rss": 487.21484375,
+    "rss_at_end": 487.21484375,
+    "rss_at_start": 1.48828125
+  },
+  "threads": 1,
+  "throughput_tps_end_to_end": 19761.193161604446,
+  "throughput_tps_engine_only": 20572.94008766998,
+  "transactions": 5078345,
+  "wall_seconds_including_csv_parse": 256.985747696
+}

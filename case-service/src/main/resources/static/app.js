@@ -127,7 +127,11 @@
   function renderDetail(c, audit, graph) {
     const pane = $('detail');
     const frag = $('detail-template').content.cloneNode(true);
-    const set = (f, v) => { const n = frag.querySelector(`[data-f="${f}"]`); n.textContent = v; if (n.classList.contains('badge')) n.classList.add(v); };
+    const set = (f, v) => {
+      const n = frag.querySelector(`[data-f="${f}"]`);
+      n.textContent = v;
+      if (n.classList.contains('badge') && v) n.classList.add(v);
+    };
     set('reference', c.reference);
     set('status', c.status);
     set('priority', c.priority);
@@ -262,7 +266,6 @@
         { selector: 'edge:selected', style: { label: 'data(label)', 'font-size': 8, 'text-background-color': '#fff', 'text-background-opacity': 1 } },
       ],
       layout: { name: graph.nodes.length > 40 ? 'concentric' : 'cose', animate: false, padding: 20 },
-      wheelSensitivity: 0.2,
     });
   }
 
