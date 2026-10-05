@@ -1,5 +1,7 @@
 # mule-ring-detector
 
+**[Open the live demo](https://leads.realalma.com/fintech/mule-ring-detector/)** · Browse model-scored synthetic cases, evidence graphs, and audit trails. All data is synthetic.
+
 A streaming money-mule detector in Rust with a Java investigation desk: temporal graph
 features, explainable model scores, account-ring evidence, case grouping, and a two-person
 approval workflow for suspicious-transaction reports.

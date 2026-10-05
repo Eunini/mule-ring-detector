@@ -79,3 +79,14 @@ h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: va
   .figures { grid-template-columns: repeat(3, 1fr); }
 }
 .detail-pane { overflow-x: auto; }
+
+@media (max-width: 640px) {
+  .topbar { align-items: flex-start; flex-direction: column; gap: 6px; padding: 12px; }
+  main { padding: 12px; }
+  .list-pane { overflow-x: auto; }
+  .audit li { grid-template-columns: 1fr 1fr; }
+  .figures { grid-template-columns: repeat(2, 1fr); }
+  .graph { height: 300px; }
+}
+
+.demo-link { color: #d5dbdb; font-weight: 400; margin-left: 16px; font-size: 12px; }

@@ -1,7 +1,7 @@
 'use strict';
 
 (() => {
-  const state = { auth: sessionStorage.getItem('mrd.auth'), me: null, page: 0, size: 20, selected: null, cy: null };
+  const state = { auth: sessionStorage.getItem('mrd.auth'), me: null, demo: false, page: 0, size: 20, selected: null, cy: null };
   const $ = (id) => document.getElementById(id);
   const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
@@ -29,12 +29,12 @@
   }
 
   async function api(path, options = {}) {
-    const headers = Object.assign({ 'X-Requested-With': 'fetch', Authorization: 'Basic ' + state.auth }, options.headers || {});
+    const headers = Object.assign({ 'X-Requested-With': 'fetch' }, state.demo ? {} : { Authorization: 'Basic ' + state.auth }, options.headers || {});
     if (options.body && typeof options.body !== 'string') {
       headers['Content-Type'] = 'application/json';
       options.body = JSON.stringify(options.body);
     }
-    const res = await fetch(path, Object.assign({}, options, { headers }));
+    const res = await fetch(path.replace(/^\//, ''), Object.assign({}, options, { headers }));
     if (res.status === 401) {
       logout();
       throw new Error('Sign-in failed or session expired.');
@@ -80,8 +80,10 @@
   function enterApp() {
     $('login-form').classList.add('hidden');
     $('session').classList.remove('hidden');
-    $('session-user').textContent = state.me.fullName + ' (' + state.me.username + ', ' + state.me.roles.join('/') + ')';
+    $('logout').classList.toggle('hidden', state.demo);
+    $('session-user').textContent = state.demo ? 'Demo viewer · Synthetic data · Read only' : state.me.fullName + ' (' + state.me.username + ', ' + state.me.roles.join('/') + ')';
     $('app').classList.remove('hidden');
+    if (state.demo && !document.querySelector('.demo-link')) document.querySelector('.brand').append(el('a', { href: '../', class: 'demo-link' }, 'All demos'));
     loadCases();
   }
 
@@ -221,6 +223,10 @@
       el('span', { class: 'what' }, e.action + (e.fromStatus && e.toStatus && e.fromStatus !== e.toStatus ? ` ${e.fromStatus} > ${e.toStatus}` : '')),
       el('span', { class: 'details' }, e.details || ''))));
 
+    if (state.demo) {
+      frag.querySelector('.actions').remove();
+      frag.querySelector('.downloads').remove();
+    }
     pane.replaceChildren(frag);
     renderGraph(pane.querySelector('[data-slot="graph"]'), graph);
   }
@@ -242,6 +248,7 @@
   }
 
   function renderGraph(container, graph) {
+    if (state.graphObserver) state.graphObserver.disconnect();
     if (state.cy) { state.cy.destroy(); state.cy = null; }
     if (!window.cytoscape) {
       container.replaceChildren(el('p', { class: 'empty' }, 'Graph library unavailable (offline?).'));
@@ -267,6 +274,10 @@
       ],
       layout: { name: graph.nodes.length > 40 ? 'concentric' : 'cose', animate: false, padding: 20 },
     });
+    state.graphObserver = new ResizeObserver(() => {
+      if (state.cy) { state.cy.resize(); state.cy.fit(undefined, 20); }
+    });
+    state.graphObserver.observe(container);
   }
 
   document.addEventListener('DOMContentLoaded', async () => {
@@ -276,6 +287,16 @@
     $('status-filter').addEventListener('change', () => { state.page = 0; loadCases(); });
     $('prev').addEventListener('click', () => { state.page = Math.max(0, state.page - 1); loadCases(); });
     $('next').addEventListener('click', () => { state.page += 1; loadCases(); });
+    try {
+      const config = await fetch('demo-config.json');
+      if (config.ok && (await config.json()).enabled) {
+        state.demo = true;
+        state.auth = null;
+        state.me = await json('/api/me');
+        enterApp();
+        return;
+      }
+    } catch (e) { showMessage('Demo unavailable. Please refresh to try again.'); }
     if (state.auth) {
       try { state.me = await json('/api/me'); enterApp(); } catch (_) { logout(); }
     }
