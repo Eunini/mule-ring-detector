@@ -2,5 +2,7 @@
   "publicUrl": "https://leads.realalma.com/fintech/mule-ring-detector/",
   "verification": "docs/public-deployment-verification.json",
   "gatewaySource": "https://github.com/Eunini/quorum-ledger/tree/main/ops/portfolio-demo",
-  "data": "synthetic"
+  "data": "synthetic",
+  "applicationFeatures": "Score transactions with the Rust detection model; investigate evidence graphs; assign cases; record notes and decisions; export XML, HTML, and PDF reports; and obtain independent supervisor review.",
+  "authentication": "Persistent accounts, secure session cookies, private workspaces, CSRF protection, and team roles"
 }

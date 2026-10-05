@@ -21,7 +21,7 @@ public class UserDirectory {
         }
     }
 
-    private final Map<String, UserProfile> profiles = new LinkedHashMap<>();
+    private final Map<String, UserProfile> profiles = new java.util.concurrent.ConcurrentHashMap<>();
 
     public UserDirectory(SecurityProperties properties) {
         for (SecurityProperties.User user : properties.users()) {
@@ -30,6 +30,8 @@ public class UserDirectory {
             profiles.put(user.username(), new UserProfile(user.username(), fullName, user.email(), roles));
         }
     }
+
+    public void register(UserProfile profile) { profiles.put(profile.username(), profile); }
 
     public Optional<UserProfile> find(String username) {
         return Optional.ofNullable(profiles.get(username));

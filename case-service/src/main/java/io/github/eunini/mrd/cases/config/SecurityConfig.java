@@ -36,7 +36,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain apiSecurity(HttpSecurity http) throws Exception {
+    SecurityFilterChain apiSecurity(HttpSecurity http, com.fasterxml.jackson.databind.ObjectMapper mapper,
+            UserDirectory users, @org.springframework.beans.factory.annotation.Value("${mrd.gateway-secret:${MRD_GATEWAY_SECRET:}}") String gatewaySecret) throws Exception {
         AuthenticationEntryPoint entryPoint = entryPoint();
         http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -57,6 +58,8 @@ public class SecurityConfig {
                 .headers(headers -> headers.contentSecurityPolicy(csp -> csp.policyDirectives(
                         "default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline'; "
                                 + "img-src 'self' data: blob:; frame-src 'self' blob:; object-src 'none'")));
+        http.addFilterBefore(new GatewayIdentityFilter(gatewaySecret, mapper, users),
+                org.springframework.security.web.authentication.www.BasicAuthenticationFilter.class);
         return http.build();
     }
 

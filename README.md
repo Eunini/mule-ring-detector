@@ -1,6 +1,6 @@
 # mule-ring-detector
 
-**[Open the live demo](https://leads.realalma.com/fintech/mule-ring-detector/)** · Browse model-scored synthetic cases, evidence graphs, and audit trails. All data is synthetic.
+**[Open the application](https://leads.realalma.com/fintech/mule-ring-detector/)** · Score transactions with the Rust detection model; investigate evidence graphs; assign cases; record notes and decisions; export XML, HTML, and PDF reports; and obtain independent supervisor review.
 
 A streaming money-mule detector in Rust with a Java investigation desk: temporal graph
 features, explainable model scores, account-ring evidence, case grouping, and a two-person
@@ -12,7 +12,19 @@ reports are illustrative and are not submitted to any regulator.
 
 ![Investigation desk with a synthetic account-ring evidence graph](docs/dashboard.png)
 
-[Recorded investigation-desk demo](docs/demo.webm)
+[Local investigation exercise recording](docs/demo.webm)
+
+## Use the application
+
+Create an account, sign in, or open a private workspace and save your account later. One account works across all four applications. Workspaces have persistent records, searchable tables, activity logs, and team invitations. Your saved data is retained when you reload or sign in from another device.
+
+Import the scored synthetic evidence once to start a case queue, or score transactions yourself. Filing approval requires a separate invited supervisor account, with both identities preserved in the Java audit trail.
+
+All funds, cards, institutions, and sample transactions are synthetic. The applications do not connect to real banking or card networks.
+
+[Application workflows and hosting details](docs/application.md)
+
+![Application workspace](docs/application.png)
 
 ## Architecture
 
